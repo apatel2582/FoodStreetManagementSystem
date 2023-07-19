@@ -1,0 +1,10 @@
+C:\Users\anish\source\repos\FoodStreetManagementSystem\publish\FoodStreetManagementSystem.pdb
+C:\Users\anish\source\repos\FoodStreetManagementSystem\publish\DAL\AppDbContext.cs
+C:\Users\anish\source\repos\FoodStreetManagementSystem\publish\D3DCompiler_47_cor3.dll
+C:\Users\anish\source\repos\FoodStreetManagementSystem\publish\PenImc_cor3.dll
+C:\Users\anish\source\repos\FoodStreetManagementSystem\publish\PresentationNative_cor3.dll
+C:\Users\anish\source\repos\FoodStreetManagementSystem\publish\vcruntime140_cor3.dll
+C:\Users\anish\source\repos\FoodStreetManagementSystem\publish\wpfgfx_cor3.dll
+C:\Users\anish\source\repos\FoodStreetManagementSystem\publish\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\anish\source\repos\FoodStreetManagementSystem\publish\e_sqlite3.dll
+C:\Users\anish\source\repos\FoodStreetManagementSystem\publish\FoodStreetManagementSystem.exe

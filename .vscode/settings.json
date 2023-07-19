@@ -1,0 +1,12 @@
+{
+    "dotnet.defaultSolution": "FoodStreetManagementSystem.sln",
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "testtt",
+            "database": "${workspaceFolder:FoodStreetManagementSystem}/bin/Debug/net6.0-windows/FoodStreetManagementSystem.db"
+        }
+    ]
+}

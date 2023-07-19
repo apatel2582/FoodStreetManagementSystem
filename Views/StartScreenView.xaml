@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="FoodStreetManagementSystem.Views.StartScreenView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FoodStreetManagementSystem.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:UserTypeToVisibilityConverter x:Key="UserTypeToVisibilityConverter"/>
+    </UserControl.Resources>
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Button Command="{Binding GoToMenuManagementViewCommand}" Margin="10,10,10,10" Width="266" FontFamily="Segoe UI Semibold" FontSize="18" Background="#FFAFFFBE" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding UserType, Converter={StaticResource UserTypeToVisibilityConverter}, ConverterParameter=GoToMenuManagementViewCommand}">Menu Management</Button>
+        <Button Command="{Binding GoToOrderManagementViewCommand}" Margin="10,10,10,10" Width="266" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFFFD3D3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding UserType, Converter={StaticResource UserTypeToVisibilityConverter}, ConverterParameter=GoToOrderManagementViewCommand}">Order Management</Button>
+        <Button Command="{Binding GoToBillingViewCommand}" Margin="10,10,10,10" Width="266" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFFFD3D3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding UserType, Converter={StaticResource UserTypeToVisibilityConverter}, ConverterParameter=GoToBillingViewCommand}">Billing</Button>
+        <Button Command="{Binding GoToLoginViewCommand}" Margin="10,10,10,10" Width="266" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" HorizontalAlignment="Center" VerticalAlignment="Center">Login</Button>
+    </StackPanel>
+    
+    
+</UserControl>

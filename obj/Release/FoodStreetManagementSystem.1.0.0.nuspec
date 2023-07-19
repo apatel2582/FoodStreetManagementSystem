@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>FoodStreetManagementSystem</id>
+    <version>1.0.0</version>
+    <authors>FoodStreetManagementSystem</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net6.0-windows7.0">
+        <dependency id="Microsoft.Data.SqlClient" version="5.1.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore" version="7.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="7.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="7.0.0" exclude="Build,Analyzers" />
+        <dependency id="MvvmLight" version="5.4.1.1" exclude="Build,Analyzers" />
+        <dependency id="MvvmLightLibs" version="5.4.1.1" exclude="Build,Analyzers" />
+        <dependency id="MySqlConnector" version="2.2.6" exclude="Build,Analyzers" />
+        <dependency id="Pomelo.EntityFrameworkCore.MySql" version="7.0.0" exclude="Build,Analyzers" />
+        <dependency id="Refractored.MvvmHelpers" version="1.6.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net6.0-windows7.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="C:\Users\anish\source\repos\FoodStreetManagementSystem\bin\Release\net6.0-windows\FoodStreetManagementSystem.runtimeconfig.json" target="lib\net6.0-windows7.0\FoodStreetManagementSystem.runtimeconfig.json" />
+    <file src="C:\Users\anish\source\repos\FoodStreetManagementSystem\bin\Release\net6.0-windows\FoodStreetManagementSystem.dll" target="lib\net6.0-windows7.0\FoodStreetManagementSystem.dll" />
+  </files>
+</package>

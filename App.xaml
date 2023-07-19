@@ -1,0 +1,16 @@
+﻿<Application x:Class="FoodStreetManagementSystem.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:FoodStreetManagementSystem.Views"
+             xmlns:viewModel="clr-namespace:FoodStreetManagementSystem.ViewModels"
+             xmlns:local="clr-namespace:FoodStreetManagementSystem"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type viewModel:StartScreenViewModel}">
+            <view:StartScreenView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:MenuManagementViewModel}">
+            <view:MenuManagementView />
+        </DataTemplate>
+    </Application.Resources>
+</Application>
