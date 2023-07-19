@@ -8,5 +8,8 @@
             "name": "testtt",
             "database": "${workspaceFolder:FoodStreetManagementSystem}/bin/Debug/net6.0-windows/FoodStreetManagementSystem.db"
         }
+    ],
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "main"
     ]
 }
