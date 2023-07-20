@@ -1,51 +1,37 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows;
-using System;
-using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace FoodStreetManagementSystem.Views
+namespace FoodStreetManagementSystem.Views;
+
+public partial class MenuManagementView
 {
-    /// <summary>
-    /// Interaction logic for MenuManagementView.xaml
-    /// </summary>
-    public partial class MenuManagementView : UserControl
+    public MenuManagementView()
     {
-        public MenuManagementView()
+        InitializeComponent();
+    }
+}
+
+public class BoolToVisibilityConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is not bool objValue)
         {
-            InitializeComponent();
+            return Visibility.Collapsed;
         }
 
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        if (objValue)
         {
-
+            return Visibility.Visible;
         }
+
+        return Visibility.Collapsed;
     }
 
-    public class BoolToVisibilityConverter : IValueConverter
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (!(value is bool))
-            {
-                return Visibility.Collapsed;
-            }
-
-            bool objValue = (bool)value;
-            if (objValue)
-            {
-                return Visibility.Visible;
-            }
-            else
-            {
-                return Visibility.Collapsed;
-            }
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
     }
-
 }

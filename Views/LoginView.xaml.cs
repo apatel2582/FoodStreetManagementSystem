@@ -1,39 +1,38 @@
-﻿using FoodStreetManagementSystem.ViewModels;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using FoodStreetManagementSystem.ViewModels;
 
-namespace FoodStreetManagementSystem.Views
+namespace FoodStreetManagementSystem.Views;
+
+/// <summary>
+/// Interaction logic for LoginView.xaml
+/// </summary>
+public partial class LoginView
 {
-    /// <summary>
-    /// Interaction logic for LoginView.xaml
-    /// </summary>
-    public partial class LoginView : UserControl
+    public LoginView()
     {
-        public LoginView()
-        {
-            InitializeComponent();
-        }
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (DataContext != null)
-            {
-                ((dynamic)DataContext).Password = ((PasswordBox)sender).Password;
-            }
-        }
-        private void PasswordBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                var loginViewModel = DataContext as LoginViewModel;
-                if (loginViewModel != null && loginViewModel.LoginCommand.CanExecute(null))
-                {
-                    loginViewModel.LoginCommand.Execute(null);
-                }
-            }
-        }
-
+        InitializeComponent();
+        LoginName.HorizontalAlignment = HorizontalAlignment.Center;
+        LoginName.VerticalAlignment = VerticalAlignment.Top;
+        LoginName.FontSize = 18;
     }
-
+    private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+    {
+        if (DataContext != null)
+        {
+            ((dynamic)DataContext).Password = ((PasswordBox)sender).Password;
+        }
+    }
+    private void PasswordBox_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter)
+        {
+            if (DataContext is LoginViewModel loginViewModel && loginViewModel.LoginCommand.CanExecute(null))
+            {
+                loginViewModel.LoginCommand.Execute(null);
+            }
+        }
+    }
 
 }

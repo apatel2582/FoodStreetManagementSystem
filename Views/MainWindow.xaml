@@ -1,4 +1,4 @@
-<Window x:Class="FoodStreetManagementSystem.MainWindow"
+<Window x:Class="FoodStreetManagementSystem.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,8 @@
         xmlns:views="clr-namespace:FoodStreetManagementSystem.Views"
         xmlns:viewModels="clr-namespace:FoodStreetManagementSystem.ViewModels"
         mc:Ignorable="d"
-        Title="Food Street Management System" Height="450" Width="800">
+        Title="Food Street Management System" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModels:LoginViewModel}">
             <views:LoginView/>
@@ -15,9 +16,23 @@
         <DataTemplate DataType="{x:Type viewModels:MainWindowViewModel}">
             <views:MainWindowView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:BillingViewModel}">
+            <views:BillingView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:OrderManagementViewModel}">
+            <views:OrderManagementView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:MenuManagementViewModel}">
+            <views:MenuManagementView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:StartScreenViewModel}">
+            <views:StartScreenView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
-        <Image Source="/Views/bg.jpg" Stretch="UniformToFill" Opacity="0.5"></Image>
+        <Canvas Opacity="0.3" Background="Aquamarine">
+            <Image Source="/Views/bg.jpg" Stretch="UniformToFill" Opacity="0.3"></Image>
+        </Canvas>
         <ContentControl Content="{Binding CurrentView}" />
     </Grid>
 </Window>

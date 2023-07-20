@@ -13,7 +13,7 @@
         <Button Command="{Binding GoToMenuManagementViewCommand}" Margin="10,10,10,10" Width="266" FontFamily="Segoe UI Semibold" FontSize="18" Background="#FFAFFFBE" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding UserType, Converter={StaticResource UserTypeToVisibilityConverter}, ConverterParameter=GoToMenuManagementViewCommand}">Menu Management</Button>
         <Button Command="{Binding GoToOrderManagementViewCommand}" Margin="10,10,10,10" Width="266" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFFFD3D3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding UserType, Converter={StaticResource UserTypeToVisibilityConverter}, ConverterParameter=GoToOrderManagementViewCommand}">Order Management</Button>
         <Button Command="{Binding GoToBillingViewCommand}" Margin="10,10,10,10" Width="266" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFFFD3D3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding UserType, Converter={StaticResource UserTypeToVisibilityConverter}, ConverterParameter=GoToBillingViewCommand}">Billing</Button>
-        <Button Command="{Binding GoToLoginViewCommand}" Margin="10,10,10,10" Width="266" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" HorizontalAlignment="Center" VerticalAlignment="Center">Login</Button>
+        <Button Command="{Binding GoToLoginViewCommand}" Margin="10,10,10,10" Width="266" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" HorizontalAlignment="Center" VerticalAlignment="Center">Logout</Button>
     </StackPanel>
     
     

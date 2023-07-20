@@ -9,8 +9,8 @@ namespace FoodStreetManagementSystem.ViewModels
         private string _userType;
         public string UserType
         {
-            get { return _userType; }
-            set { SetProperty(ref _userType, value); }
+            get => _userType;
+            set => SetProperty(ref _userType, value);
         }
         public RelayCommand GoToMenuManagementViewCommand { get; private set; }
         public RelayCommand GoToOrderManagementViewCommand { get; private set; }
@@ -31,11 +31,13 @@ namespace FoodStreetManagementSystem.ViewModels
             GoToOrderManagementViewCommand = new RelayCommand(() =>
             {
                 //Messenger.Default.Send(new NavigateMessage { ViewModel = typeof(OrderManagementViewModel) });
+                _messenger.Send(new NavigateMessage { ViewModel = nameof(OrderManagementViewModel)});
             });
 
             GoToBillingViewCommand = new RelayCommand(() =>
             {
                 //Messenger.Default.Send(new NavigateMessage { ViewModel = typeof(BillingViewModel) });
+                _messenger.Send(new NavigateMessage { ViewModel = nameof(BillingViewModel) });
             });
 
             GoToLoginViewCommand = new RelayCommand(() =>
