@@ -1,21 +1,20 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 using FoodStreetManagementSystem.Models;
-using System.Collections.ObjectModel;
 
-namespace FoodStreetManagementSystem.ViewModels
+namespace FoodStreetManagementSystem.ViewModels;
+
+public interface IOrderManagementViewModel
 {
-    public interface IOrderManagementViewModel
-    {
-        ObservableCollection<Order> Orders { get; set; }
+    ObservableCollection<Order> Orders { get; set; }
 
-        Order SelectedOrder { get; set; }
+    Order SelectedOrder { get; set; }
 
-        RelayCommand LoadOrdersCommand { get; }
+    RelayCommand LoadOrdersCommand { get; }
 
-        RelayCommand AddOrderCommand { get; }
+    RelayCommand AddOrderCommand { get; }
 
-        RelayCommand EditOrderCommand { get; }
+    RelayCommand EditOrderCommand { get; }
 
-        RelayCommand DeleteOrderCommand { get; }
-    }
+    RelayCommand DeleteOrderCommand { get; }
 }

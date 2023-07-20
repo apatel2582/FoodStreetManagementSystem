@@ -1,15 +1,12 @@
-﻿using System.Windows.Controls;
+﻿namespace FoodStreetManagementSystem.Views;
 
-namespace FoodStreetManagementSystem.Views
+/// <summary>
+/// Interaction logic for BillingView.xaml
+/// </summary>
+public partial class BillingView
 {
-    /// <summary>
-    /// Interaction logic for BillingView.xaml
-    /// </summary>
-    public partial class BillingView : UserControl
+    public BillingView()
     {
-        public BillingView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,21 +1,20 @@
-﻿using FoodStreetManagementSystem.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using FoodStreetManagementSystem.Models;
 
-namespace FoodStreetManagementSystem.DAL
+namespace FoodStreetManagementSystem.DAL;
+
+public interface IUserRepository
 {
-    public interface IUserRepository
-    {
-        Task<List<User>> GetUsersAsync();
+    Task<List<User>> GetUsersAsync();
 
-        Task<User> GetUserByIdAsync(int id);
+    Task<User> GetUserByIdAsync(int id);
 
-        Task<bool> AddUserAsync(User user);
+    Task<bool> AddUserAsync(User user);
 
-        Task<bool> UpdateUserAsync(User user);
+    Task<bool> UpdateUserAsync(User user);
 
-        Task<bool> DeleteUserAsync(int id);
+    Task<bool> DeleteUserAsync(int id);
 
-        Task<User?> ValidateCredentials(string username, string password);
-    }
+    Task<User?> ValidateCredentials(string username, string password);
 }

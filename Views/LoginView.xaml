@@ -9,14 +9,14 @@
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:LoginViewModel}">
     <Grid>
+        
         <StackPanel Panel.ZIndex="-1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Username:" Width="266"/>
-            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Width="266" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,6"/>
-            <TextBlock Text="Password:" Width="266" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,6"/>
-
-            <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" KeyDown="PasswordBox_KeyDown" Width="266" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,6"/>
-            <TextBlock Text="" Width="266" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,6"/>
-            <Button Content="Login" Command="{Binding LoginCommand}" Width="266" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,6"/>
+            <TextBlock x:Name="LoginName"><Bold>Login Page</Bold></TextBlock>
+            <TextBlock FontSize="15" Text="Username:" Width="266"/>
+            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Width="266" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,3,3,3"/>
+            <TextBlock FontSize="15" Text="Password:" Width="266" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,3,3,3"/>
+            <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" KeyDown="PasswordBox_KeyDown" Width="266" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,3,3,3" PasswordChar="*"/>
+            <Button FontSize="15" Content="Login" Command="{Binding LoginCommand}" Width="266" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,3,3,3"/>
         </StackPanel>
     </Grid>
 </UserControl>
