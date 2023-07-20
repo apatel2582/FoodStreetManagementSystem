@@ -1,21 +1,20 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 using FoodStreetManagementSystem.Models;
-using System.Collections.ObjectModel;
 
-namespace FoodStreetManagementSystem.ViewModels
+namespace FoodStreetManagementSystem.ViewModels;
+
+public interface IBillingViewModel
 {
-    public interface IBillingViewModel
-    {
-        ObservableCollection<Bill> Bills { get; set; }
+    ObservableCollection<Bill> Bills { get; set; }
 
-        Bill SelectedBill { get; set; }
+    Bill SelectedBill { get; set; }
 
-        RelayCommand LoadBillsCommand { get; }
+    RelayCommand LoadBillsCommand { get; }
 
-        RelayCommand AddBillCommand { get; }
+    RelayCommand AddBillCommand { get; }
 
-        RelayCommand EditBillCommand { get; }
+    RelayCommand EditBillCommand { get; }
 
-        RelayCommand DeleteBillCommand { get; }
-    }
+    RelayCommand DeleteBillCommand { get; }
 }

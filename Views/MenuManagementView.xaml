@@ -10,218 +10,217 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </UserControl.Resources>
-    <StackPanel Margin="0,0,0,-1483">
-        <Button Content="Back to Start Screen" Command="{Binding BackCommand}" Width="236" />
-        <Button Content="Reset the Menu Management View" Command="{Binding ResetCommand}" Width="234" Click="Button_Click" />
-        <ScrollViewer MaxHeight="200">
-            <ListView Visibility="{Binding IsMenuLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedMenuItem}" Height="200">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="MenuItemID" DisplayMemberBinding="{Binding MenuItemID}" />
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" />
-                        <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}" />
-                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" />
-                        <GridViewColumn Header="Image URL" DisplayMemberBinding="{Binding ImageURL}" />
-                        <GridViewColumn Header="Is Active" DisplayMemberBinding="{Binding IsActive}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </ScrollViewer>
-
-        <StackPanel Orientation="Vertical" Margin="0,20,0,20" 
+    <DockPanel LastChildFill="False">
+        <Label Content="Status: Connected" Background="#FF28FF00" Foreground="Indigo" DockPanel.Dock="Bottom" BorderThickness="1" BorderBrush="Indigo"></Label>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" >
+                <StackPanel Orientation="Vertical">
+                    <StackPanel VerticalAlignment="Top" Orientation="Vertical" Margin="5,5,5,10">
+                        <Button Content="Start Screen" Command="{Binding BackCommand}" Margin="5" Padding="15,5" Background="#FFF4BE2F" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
+                        <Button Content="Reset" Command="{Binding ResetCommand}" Margin="5" Padding="15,5" Background="#FFF4BE2F" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="5,5,5,5">
+                        <Button Content="Load Menu" Command="{Binding LoadMenuCommand}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
+                        <Button Content="Add Item" Command="{Binding ShowAddItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
+                        <Button Content="Edit Item" Command="{Binding ShowEditItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
+                        <Button Content="Delete Item" Command="{Binding ShowDeleteItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"  VerticalAlignment="Center" Margin="5,5,5,5">
+                        <Button Content="View Users" Command="{Binding ViewUsersCommand}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" />
+                        <Button Content="User List" Command="{Binding LoadUsersCommand}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Add User" Command="{Binding ShowAddUser}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Edit User" Command="{Binding ShowEditUser}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Delete User" Command="{Binding ShowDeleteUser}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <ListView Visibility="{Binding IsMenuLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedMenuItem}" Height="200">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="MenuItemID" DisplayMemberBinding="{Binding MenuItemID}" />
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" />
+                            <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}" />
+                            <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" />
+                            <GridViewColumn Header="Image URL" DisplayMemberBinding="{Binding ImageURL}" />
+                            <GridViewColumn Header="Is Active" DisplayMemberBinding="{Binding IsActive}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StackPanel Orientation="Vertical" Margin="5,5,5,5" HorizontalAlignment="Center"
             Visibility="{Binding IsAddingItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"><Run Text="New Item Name:"/><Run Language="en-in" Text="             "/></TextBlock>
-                <TextBox Width="700" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
-                <TextBox Width="706" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
-                <ComboBox Width="683" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,10,0" Width="200" ><Run Text="New Item Name:"/><Run Language="en-in" Text="             "/></TextBlock>
+                        <TextBox Width="450" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                        <TextBox Width="450" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                        <ComboBox Width="450" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
                           ItemsSource="{Binding Categories}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
-                <TextBox Width="672" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
-                <TextBox Width="675" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="198" Background="#FFB2B2B2"/>
-                <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <Button Content="Submit New Item" Command="{Binding AddMenuItemCommand}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="199"/>
-        </StackPanel>
-
-        <StackPanel Orientation="Vertical" Margin="0,20,0,20" 
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                        <TextBox Width="450" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                        <TextBox Width="450" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200"/>
+                        <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <Button Content="Submit New Item" Command="{Binding AddMenuItemCommand}" Margin="5,5,5,5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="5,5,5,5" HorizontalAlignment="Center"
             Visibility="{Binding IsEditingItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <!-- Edit Item controls here -->
-            <ComboBox Width="67" ItemsSource="{Binding MenuItems}" 
+                    <!-- Edit Item controls here -->
+                    <ComboBox Width="63" ItemsSource="{Binding MenuItems}" 
                 DisplayMemberPath="MenuItemID"
                 SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" RenderTransformOrigin="0.508,0.548" />
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Selected Item ID:" VerticalAlignment="Center" Margin="0,0,10,0" Width="197" Background="#FFB2B2B2"/>
-                <TextBox Width="700" Text="{Binding SelectedMenuItem.MenuItemID, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Name:" VerticalAlignment="Center" Margin="0,0,10,0" Width="197" Background="#FFB2B2B2"/>
-                <TextBox Width="701" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="197" Background="#FFB2B2B2"/>
-                <TextBox Width="708" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="197" Background="#FFB2B2B2"/>
-                <ComboBox Width="686" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Selected Item ID:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                        <TextBox Width="450" Text="{Binding SelectedMenuItem.MenuItemID, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Name:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                        <TextBox Width="450" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                        <TextBox Width="450" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                        <ComboBox Width="450" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
                           ItemsSource="{Binding Categories}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="197" Background="#FFB2B2B2"/>
-                <TextBox Width="672" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="197" Background="#FFB2B2B2"/>
-                <TextBox Width="675" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="196" Background="#FFB2B2B2"/>
-                <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <Button Content="Edit Selected Item" Command="{Binding EditMenuItemCommand}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="239"/>
-        </StackPanel>
-
-        <StackPanel Orientation="Vertical" Margin="0,20,0,20" 
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                        <TextBox Width="450" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                        <TextBox Width="450" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                        <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <Button Content="Edit Selected Item" Command="{Binding EditMenuItemCommand}" Margin="5,5,5,5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="5,5,5,5" HorizontalAlignment="Center"
             Visibility="{Binding IsDeletingItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <!-- Delete Item controls here -->
-            <!-- Delete Item controls here -->
-            <ComboBox Width="60" ItemsSource="{Binding MenuItems}" 
+                    <!-- Delete Item controls here -->
+                    <ComboBox Width="63" ItemsSource="{Binding MenuItems}" 
                 DisplayMemberPath="MenuItemID"
                 SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" />
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Selected Item ID:" VerticalAlignment="Center" Margin="0,0,10,0" Width="192" Background="#FFB2B2B2"/>
-                <TextBox Width="700" Text="{Binding SelectedMenuItem.MenuItemID, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Name:" VerticalAlignment="Center" Margin="0,0,10,0" Width="192" Background="#FFB2B2B2"/>
-                <TextBox Width="701" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="192" Background="#FFB2B2B2"/>
-                <TextBox Width="707" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="192" Background="#FFB2B2B2"/>
-                <ComboBox Width="684" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
-              ItemsSource="{Binding Categories}" IsEnabled="{Binding IsDeletingItem}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="192" Background="#FFB2B2B2"/>
-                <TextBox Width="673" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="192" Background="#FFB2B2B2"/>
-                <TextBox Width="675" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="191" Background="#FFB2B2B2"/>
-                <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsDeletingItem}" />
-            </StackPanel>
-            <Button Content="Delete Selected Item" Command="{Binding DeleteMenuItemCommand}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="232"/>
-        </StackPanel>
-        <TextBlock Foreground="#FF4E0000" Margin="0,10,0,10" TextAlignment="Center" Background="#FFFFE1E1" Text="Error: "/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,50">
-            <Button Content="Load Menu" Command="{Binding LoadMenuCommand}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
-            <Button Content="Add Item" Command="{Binding ShowAddItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
-            <Button Content="Edit Item" Command="{Binding ShowEditItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
-            <Button Content="Delete Item" Command="{Binding ShowDeleteItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
-            
-
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,50">
-            <Button Content="View Users" Command="{Binding ViewUsersCommand}" Margin="5" Padding="15,5" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button Content="User List" Command="{Binding LoadUsersCommand}" Margin="5" Padding="15,5" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <Button Content="Add User" Command="{Binding ShowAddUser}" Margin="5" Padding="15,5" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <Button Content="Edit User" Command="{Binding ShowEditUser}" Margin="5" Padding="15,5" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <Button Content="Delete User" Command="{Binding ShowDeleteUser}" Margin="5" Padding="15,5" FontSize="18" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}">
-            <TextBlock Text="User Management" FontWeight="Bold" FontSize="20" Margin="10"/>
-            <ListView ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" Height="98">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding UserID}" Margin="5"/>
-                            <TextBlock Text="{Binding UserName}" Margin="5"/>
-                            <TextBlock Text="{Binding Password}" Margin="5"/>
-                            <TextBlock Text="{Binding UserType}" Margin="5"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Selected Item ID:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                        <TextBox Width="450" Text="{Binding SelectedMenuItem.MenuItemID, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Name:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                        <TextBox Width="450" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                        <TextBox Width="450" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                        <ComboBox Width="450" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
+              ItemsSource="{Binding Categories}" IsEnabled="{Binding IsDeletingItem}" IsSynchronizedWithCurrentItem="True" IsReadOnly="True" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                        <TextBox Width="450" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                        <TextBox Width="450" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                        <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsDeletingItem}" />
+                    </StackPanel>
+                    <Button Content="Delete Selected Item" Command="{Binding DeleteMenuItemCommand}" Margin="5,5,5,5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock Text="User Management" FontWeight="Bold" FontSize="20" Margin="3"/>
+                    <ListView ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" Height="150">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="UserID" DisplayMemberBinding="{Binding UserID}" />
+                                <GridViewColumn Header="UserName" DisplayMemberBinding="{Binding UserName}" />
+                                <GridViewColumn Header="Password" DisplayMemberBinding="{Binding Password}" />
+                                <GridViewColumn Header="UserType" DisplayMemberBinding="{Binding UserType}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding IsAddingUser, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="Add User" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                            <TextBlock Text="User Name:" Margin="3"/>
+                            <TextBox Text="{Binding NewUserName}" Width="200" Margin="3"/>
                         </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                <Button Content="Add User" Command="{Binding ShowAddUser}" Margin="5"/>
-                <Button Content="Edit User" Command="{Binding ShowEditUser}" Margin="5"/>
-                <Button Content="Delete User" Command="{Binding ShowDeleteUser}" Margin="5"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                            <TextBlock Text="Password:" Margin="3"/>
+                            <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="3"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                            <TextBlock Text="User Type:" Margin="3"/>
+                            <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="3"/>
+                        </StackPanel>
+                        <Button Content="Submit" Command="{Binding AddUserCommand}" HorizontalAlignment="Center" Margin="3"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding IsEditingUser, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="Edit User" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <!-- Include the same StackPanels for UserName, Password, and UserType as in the Add User section here -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                            <TextBlock Text="User Name:" Margin="3"/>
+                            <TextBox Text="{Binding NewUserName}" Width="200" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                            <TextBlock Text="Password:" Margin="3"/>
+                            <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                            <TextBlock Text="User Type:" Margin="3"/>
+                            <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="3"/>
+                        </StackPanel>
+                        <Button Content="Submit" Command="{Binding EditUserCommand}" HorizontalAlignment="Center" Margin="3"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding IsDeletingUser, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="Delete User" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <!-- Include the same StackPanels for UserName, Password, and UserType as in the Add User section here -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                            <TextBlock Text="User Name:" Margin="3"/>
+                            <TextBox Text="{Binding NewUserName}" Width="200" Margin="3"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                            <TextBlock Text="Password:" Margin="3"/>
+                            <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="3"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                            <TextBlock Text="User Type:" Margin="3"/>
+                            <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="3"/>
+                        </StackPanel>
+                        <Button Content="Submit" Command="{Binding DeleteUserCommand}" HorizontalAlignment="Center" Margin="3"/>
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Vertical" Visibility="{Binding IsAddingUser, Converter={StaticResource BoolToVisibilityConverter}}">
-                <TextBlock Text="Add User" FontWeight="Bold" FontSize="18" Margin="10"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <TextBlock Text="User Name:" Margin="5"/>
-                    <TextBox Text="{Binding NewUserName}" Width="200" Margin="5"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <TextBlock Text="Password:" Margin="5"/>
-                    <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="5"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <TextBlock Text="User Type:" Margin="5"/>
-                    <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="5"/>
-                </StackPanel>
-                <Button Content="Submit" Command="{Binding AddUserCommand}" HorizontalAlignment="Center" Margin="10"/>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Visibility="{Binding IsEditingUser, Converter={StaticResource BoolToVisibilityConverter}}">
-                <TextBlock Text="Edit User" FontWeight="Bold" FontSize="18" Margin="10"/>
-                <!-- Include the same StackPanels for UserName, Password, and UserType as in the Add User section here -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <TextBlock Text="User Name:" Margin="5"/>
-                    <TextBox Text="{Binding NewUserName}" Width="200" Margin="5"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <TextBlock Text="Password:" Margin="5"/>
-                    <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="5"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <TextBlock Text="User Type:" Margin="5"/>
-                    <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="5"/>
-                </StackPanel>
-                <Button Content="Submit" Command="{Binding EditUserCommand}" HorizontalAlignment="Center" Margin="10"/>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Visibility="{Binding IsDeletingUser, Converter={StaticResource BoolToVisibilityConverter}}">
-                <TextBlock Text="Delete User" FontWeight="Bold" FontSize="18" Margin="10"/>
-                <!-- Include the same StackPanels for UserName, Password, and UserType as in the Add User section here -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <TextBlock Text="User Name:" Margin="5"/>
-                    <TextBox Text="{Binding NewUserName}" Width="200" Margin="5"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <TextBlock Text="Password:" Margin="5"/>
-                    <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="5"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                    <TextBlock Text="User Type:" Margin="5"/>
-                    <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="5"/>
-                </StackPanel>
-                <Button Content="Submit" Command="{Binding DeleteUserCommand}" HorizontalAlignment="Center" Margin="10"/>
-            </StackPanel>
-        </StackPanel>
-
-    </StackPanel>
-    
+        </ScrollViewer>
+        </Grid>
+    </DockPanel>
 </UserControl>

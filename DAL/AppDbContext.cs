@@ -1,52 +1,52 @@
-﻿using FoodStreetManagementSystem.Models;
+﻿using System.Reflection;
+using FoodStreetManagementSystem.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System.Reflection;
 
-namespace FoodStreetManagementSystem.DAL
+namespace FoodStreetManagementSystem.DAL;
+
+public sealed class AppDbContext : DbContext
 {
-    public class AppDbContext : DbContext
+
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
-
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        if (!Database.CanConnect())
         {
-            if (!Database.CanConnect())
-            {
-                Database.EnsureCreated();
-                InitializeDatabase();
-            }
+            Database.EnsureCreated();
+            InitializeDatabase();
         }
+    }
 
-        public DbSet<MenuItem> MenuItems { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<Bill> Bills { get; set; }
-        public DbSet<User> Users { get; set; }
+    public DbSet<MenuItem> MenuItems { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
+    public DbSet<Bill> Bills { get; set; }
+    public DbSet<User> Users { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Order>()
-                .HasOne(o => o.Bill)
-                .WithOne(b => b.Order)
-                .HasForeignKey<Bill>(b => b.OrderID);
-        }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.Bill)
+            .WithOne(b => b.Order)
+            .HasForeignKey<Bill>(b => b.OrderID);
+    }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=FoodStreetManagementSystem.db",
-                options => options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName));
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("Data Source=FoodStreetManagementSystem.db",
+            options => options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName));
 
-            // Enable Foreign Key Constraints
-            optionsBuilder.EnableSensitiveDataLogging(true).ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryPossibleUnintendedUseOfEqualsWarning));
-        }
-        static private void InitializeDatabase()
-        {
-            var connection = new SqliteConnection("Data Source=FoodStreetManagementSystem.db");
-            connection.Open();
+        // Enable Foreign Key Constraints
+        optionsBuilder.EnableSensitiveDataLogging().ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryPossibleUnintendedUseOfEqualsWarning));
+    }
+    private static void InitializeDatabase()
+    {
+        var connection = new SqliteConnection("Data Source=FoodStreetManagementSystem.db");
+        connection.Open();
 
-            var createTablesCommand = connection.CreateCommand();
-            createTablesCommand.CommandText = @"
+        var createTablesCommand = connection.CreateCommand();
+        createTablesCommand.CommandText = @"
                 -- Create the MenuItems table
                 DROP TABLE Bills;
                 DROP TABLE OrderItems;
@@ -100,10 +100,10 @@ namespace FoodStreetManagementSystem.DAL
                 );
                 
                 ";
-            createTablesCommand.ExecuteNonQuery();
+        createTablesCommand.ExecuteNonQuery();
 
-            var insertCommand = connection.CreateCommand();
-            insertCommand.CommandText = @"
+        var insertCommand = connection.CreateCommand();
+        insertCommand.CommandText = @"
                 INSERT INTO MenuItems (Name, Price, Category, Description, ImageURL, IsActive) VALUES
                     ('Burger', 5.99, 'Main Course', 'Delicious burger with juicy patty', 'burger.jpg', 1),
                     ('Pizza', 8.99, 'Main Course', 'Cheesy pizza with various toppings', 'pizza.jpg', 1),
@@ -176,7 +176,6 @@ namespace FoodStreetManagementSystem.DAL
                     (3, 'BIL003', '2023-07-03', 12.99, 0);
                     -- Insert the remaining sample bills here
             ";
-            insertCommand.ExecuteNonQuery();
-        }
+        insertCommand.ExecuteNonQuery();
     }
 }

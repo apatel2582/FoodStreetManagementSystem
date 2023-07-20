@@ -1,22 +1,21 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 using FoodStreetManagementSystem.Models;
 using MvvmHelpers.Commands;
-using System.Collections.ObjectModel;
 
-namespace FoodStreetManagementSystem.ViewModels
+namespace FoodStreetManagementSystem.ViewModels;
+
+public interface IMenuManagementViewModel
 {
-    public interface IMenuManagementViewModel
-    {
-        ObservableCollection<MenuItem> MenuItems { get; set; }
+    ObservableCollection<MenuItem> MenuItems { get; set; }
 
-        MenuItem SelectedMenuItem { get; set; }
+    MenuItem SelectedMenuItem { get; set; }
 
-        AsyncCommand LoadMenuCommand { get; }
+    AsyncCommand LoadMenuCommand { get; }
 
-        RelayCommand AddMenuItemCommand { get; }
+    RelayCommand AddMenuItemCommand { get; }
 
-        RelayCommand EditMenuItemCommand { get; }
+    RelayCommand EditMenuItemCommand { get; }
 
-        RelayCommand DeleteMenuItemCommand { get; }
-    }
+    RelayCommand DeleteMenuItemCommand { get; }
 }

@@ -1,13 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 
-namespace FoodStreetManagementSystem.ViewModels
+
+namespace FoodStreetManagementSystem.ViewModels;
+
+public interface ILoginViewModel
 {
-    public interface ILoginViewModel
-    {
-        string Username { get; set; }
+    string Username { get; set; }
 
-        string Password { get; set; }
+    string Password { get; set; }
 
-        IAsyncRelayCommand LoginCommand { get; }
-    }
+    IAsyncRelayCommand LoginCommand { get; }
 }

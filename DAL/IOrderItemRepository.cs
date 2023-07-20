@@ -1,19 +1,18 @@
-﻿using FoodStreetManagementSystem.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using FoodStreetManagementSystem.Models;
 
-namespace FoodStreetManagementSystem.DAL
+namespace FoodStreetManagementSystem.DAL;
+
+public interface IOrderItemRepository
 {
-    public interface IOrderItemRepository
-    {
-        Task<List<OrderItem>> GetOrderItemsAsync();
+    Task<List<OrderItem>> GetOrderItemsAsync();
 
-        Task<OrderItem> GetOrderItemByIdAsync(int id);
+    Task<OrderItem> GetOrderItemByIdAsync(int id);
 
-        Task<bool> AddOrderItemAsync(OrderItem orderItem);
+    Task<bool> AddOrderItemAsync(OrderItem orderItem);
 
-        Task<bool> UpdateOrderItemAsync(OrderItem orderItem);
+    Task<bool> UpdateOrderItemAsync(OrderItem orderItem);
 
-        Task<bool> DeleteOrderItemAsync(int id);
-    }
+    Task<bool> DeleteOrderItemAsync(int id);
 }

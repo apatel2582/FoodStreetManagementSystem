@@ -1,12 +1,9 @@
-﻿using System.Windows.Controls;
+﻿namespace FoodStreetManagementSystem.Views;
 
-namespace FoodStreetManagementSystem.Views
+public partial class MainWindowView
 {
-    public partial class MainWindowView : UserControl
+    public MainWindowView()
     {
-        public MainWindowView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
