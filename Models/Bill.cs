@@ -9,8 +9,10 @@ public class Bill
     public int BillID { get; set; }
     public int OrderID { get; set; }
     public DateTime BillTime { get; set; }
-    public decimal AmountDue { get; set; }
-
+    public decimal TotalAmount { get; set; }
+    public bool IsPaid { get; set; }
+    public string BillNumber { get; set; }  // Added this line
     // Navigation property
-    public Order? Order { get; set; }
+    //public Order? Order { get; set; }
+    public virtual Order Order { get; set; }
 }

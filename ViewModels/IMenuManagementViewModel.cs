@@ -11,7 +11,7 @@ public interface IMenuManagementViewModel
 
     MenuItem SelectedMenuItem { get; set; }
 
-    AsyncCommand LoadMenuCommand { get; }
+    IAsyncRelayCommand LoadMenuCommand { get; }
 
     RelayCommand AddMenuItemCommand { get; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using CommunityToolkit.Mvvm.Messaging;
 using FoodStreetManagementSystem.DAL;
 using FoodStreetManagementSystem.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ public partial class App
         services.AddTransient<IBillRepository, BillRepository>();
         services.AddTransient<IOrderRepository, OrderRepository>();
         services.AddTransient<IOrderItemRepository, OrderItemRepository>();
+        services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<MenuManagementViewModel>();
         services.AddTransient<StartScreenViewModel>();

@@ -31,7 +31,6 @@ public class MenuRepository : IMenuRepository
         var saveResult = await _context.SaveChangesAsync();
         return saveResult > 0;
     }
-
     public async Task<bool> UpdateMenuItemAsync(MenuItem item)
     {
         _context.MenuItems.Attach(item);
@@ -39,7 +38,6 @@ public class MenuRepository : IMenuRepository
         var saveResult = await _context.SaveChangesAsync();
         return saveResult > 0;
     }
-
     public async Task<bool> DeleteMenuItemAsync(int id)
     {
         var item = await _context.MenuItems.FindAsync(id);
@@ -52,4 +50,5 @@ public class MenuRepository : IMenuRepository
         var saveResult = await _context.SaveChangesAsync();
         return saveResult > 0;
     }
+
 }

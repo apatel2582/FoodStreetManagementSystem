@@ -5,13 +5,13 @@
           xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
           xmlns:local="clr-namespace:FoodStreetManagementSystem.Views"
           mc:Ignorable="d" 
-          d:DesignHeight="450" d:DesignWidth="800">
+          d:DesignHeight="450" d:DesignWidth="800"
+          Loaded="OnLoaded">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </UserControl.Resources>
-    <DockPanel LastChildFill="False">
-        <Label Content="Status: Connected" Background="#FF28FF00" Foreground="Indigo" DockPanel.Dock="Bottom" BorderThickness="1" BorderBrush="Indigo"></Label>
+    
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -20,207 +20,430 @@
             <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" >
                 <StackPanel Orientation="Vertical">
                     <StackPanel VerticalAlignment="Top" Orientation="Vertical" Margin="5,5,5,10">
-                        <Button Content="Start Screen" Command="{Binding BackCommand}" Margin="5" Padding="15,5" Background="#FFF4BE2F" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
+                        <Button Content="Start Screen" Command="{Binding GoBackCommand}" Margin="5" Padding="15,5" Background="#FFF4BE2F" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
                         <Button Content="Reset" Command="{Binding ResetCommand}" Margin="5" Padding="15,5" Background="#FFF4BE2F" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="5,5,5,5">
-                        <Button Content="Load Menu" Command="{Binding LoadMenuCommand}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
-                        <Button Content="Add Item" Command="{Binding ShowAddItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
-                        <Button Content="Edit Item" Command="{Binding ShowEditItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
-                        <Button Content="Delete Item" Command="{Binding ShowDeleteItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16"/>
+                        <Button Content="MenuItems CL->" Command="{Binding ViewMenuItemsCommand}"  Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" />
+                        <Button Content="Load Menu" Command="{Binding LoadMenuCommand}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Visibility="{Binding IsMenuItemsManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        <Button Content="Add Item" Command="{Binding ShowAddItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Visibility="{Binding IsMenuItemsManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        <Button Content="Edit Item" Command="{Binding ShowEditItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Visibility="{Binding IsMenuItemsManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        <Button Content="Delete Item" Command="{Binding ShowDeleteItemCommand2}" Margin="5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Visibility="{Binding IsMenuItemsManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical"  VerticalAlignment="Center" Margin="5,5,5,5">
-                        <Button Content="View Users" Command="{Binding ViewUsersCommand}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" />
+                        <Button Content="Users CL->" Command="{Binding ViewUsersCommand}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" />
                         <Button Content="User List" Command="{Binding LoadUsersCommand}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
                         <Button Content="Add User" Command="{Binding ShowAddUser}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
                         <Button Content="Edit User" Command="{Binding ShowEditUser}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
                         <Button Content="Delete User" Command="{Binding ShowDeleteUser}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
                     </StackPanel>
-                </StackPanel>
+                    <StackPanel Orientation="Vertical"  VerticalAlignment="Center" Margin="5,5,5,5">
+                        <Button Content="Orders CL->" Command="{Binding ViewOrdersCommand}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" />
+                        <Button Content="Order List" Command="{Binding LoadOrdersCommand}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsOrderManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Add Order" Command="{Binding ShowAddOrder}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsOrderManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Edit Order" Command="{Binding ShowEditOrder}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsOrderManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Delete Order" Command="{Binding ShowDeleteOrder}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsOrderManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"  VerticalAlignment="Center" Margin="5,5,5,5">
+                        <Button Content="Order Items CL->" Command="{Binding ViewOrderItemsCommand}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" />
+                        <Button Content="Order Item List" Command="{Binding LoadOrderItemsCommand}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsOrderItemManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Add Order Items" Command="{Binding ShowAddOrderItem}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsOrderItemManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Edit Order Items" Command="{Binding ShowEditOrderItem}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsOrderItemManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Delete Order Items" Command="{Binding ShowDeleteOrderitem}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsOrderItemManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"  VerticalAlignment="Center" Margin="5,5,5,5">
+                        <Button Content="Bills CL->" Command="{Binding ViewBillsCommand}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" />
+                        <Button Content="Bill List" Command="{Binding LoadBillsCommand}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsBillManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Add Bill" Command="{Binding ShowAddBill}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsBillManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Edit Bill" Command="{Binding ShowEditBill}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsBillManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Button Content="Delete Bill" Command="{Binding ShowDeleteBill}" Margin="5,5,5,5" Padding="15,5" FontSize="16" FontFamily="Segoe UI Semibold" Background="#FFAFFFBE" Visibility="{Binding IsBillManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    </StackPanel>
+            </StackPanel>
             </ScrollViewer>
             <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <ListView Visibility="{Binding IsMenuLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedMenuItem}" Height="200">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="MenuItemID" DisplayMemberBinding="{Binding MenuItemID}" />
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" />
-                            <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Category}" />
-                            <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" />
-                            <GridViewColumn Header="Image URL" DisplayMemberBinding="{Binding ImageURL}" />
-                            <GridViewColumn Header="Is Active" DisplayMemberBinding="{Binding IsActive}" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <StackPanel Orientation="Vertical" Margin="5,5,5,5" HorizontalAlignment="Center"
-            Visibility="{Binding IsAddingItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center" Margin="0,0,10,0" Width="200" ><Run Text="New Item Name:"/><Run Language="en-in" Text="             "/></TextBlock>
-                        <TextBox Width="450" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" />
+                <StackPanel>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding IsMenuItemsManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="Menu Items Management" FontWeight="Bold" FontSize="20" Margin="3"/>
+                        <DataGrid Visibility="{Binding IsMenuLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                              ItemsSource="{Binding MenuItems}" 
+                              SelectedItem="{Binding SelectedMenuItem}" 
+                              AutoGenerateColumns="False" 
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="MenuItemID" Binding="{Binding MenuItemID}" Width="*" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+                            <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="*" />
+                            <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*" />
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*" />
+                            <DataGridTextColumn Header="Image URL" Binding="{Binding ImageURL}" Width="*" />
+                            <DataGridTextColumn Header="Is Active" Binding="{Binding IsActive}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Vertical" Margin="5,5,5,5" HorizontalAlignment="Center"
+                    Visibility="{Binding IsAddingItem, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Margin="0,0,10,0" Width="200" ><Run Text="New Item Name:"/><Run Language="en-in" Text="             "/></TextBlock>
+                                <TextBox Width="450" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                                <TextBox Width="450" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                                <ComboBox Width="450" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
+                                  ItemsSource="{Binding Categories}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                                <TextBox Width="450" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                                <TextBox Width="450" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200"/>
+                                <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <Button Content="Submit New Item" Command="{Binding AddMenuItemCommand}" Margin="5,5,5,5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="200"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="5,5,5,5" HorizontalAlignment="Center"
+                    Visibility="{Binding IsEditingItem, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <!-- Edit Item controls here -->
+                            <ComboBox Width="63" ItemsSource="{Binding MenuItems}" 
+                        DisplayMemberPath="MenuItemID"
+                        SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" RenderTransformOrigin="0.508,0.548" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Selected Item ID:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                                <TextBox Width="450" Text="{Binding SelectedMenuItem.MenuItemID, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Name:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                                <TextBox Width="450" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                                <TextBox Width="450" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                                <ComboBox Width="450" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
+                                  ItemsSource="{Binding Categories}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                                <TextBox Width="450" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                                <TextBox Width="450" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
+                                <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <Button Content="Edit Selected Item" Command="{Binding EditMenuItemCommand}" Margin="5,5,5,5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="200"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="5,5,5,5" HorizontalAlignment="Center"
+                    Visibility="{Binding IsDeletingItem, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <!-- Delete Item controls here -->
+                            <ComboBox Width="63" ItemsSource="{Binding MenuItems}" 
+                        DisplayMemberPath="MenuItemID"
+                        SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Selected Item ID:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                                <TextBox Width="450" Text="{Binding SelectedMenuItem.MenuItemID, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Name:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                                <TextBox Width="450" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                                <TextBox Width="450" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                                <ComboBox Width="450" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
+                      ItemsSource="{Binding Categories}" IsEnabled="{Binding IsDeletingItem}" IsSynchronizedWithCurrentItem="True" IsReadOnly="True" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                                <TextBox Width="450" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                                <TextBox Width="450" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
+                                <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsDeletingItem}" />
+                            </StackPanel>
+                            <Button Content="Delete Selected Item" Command="{Binding DeleteMenuItemCommand}" Margin="5,5,5,5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="200"/>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
-                        <TextBox Width="450" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
-                        <ComboBox Width="450" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
-                          ItemsSource="{Binding Categories}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
-                        <TextBox Width="450" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
-                        <TextBox Width="450" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200"/>
-                        <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <Button Content="Submit New Item" Command="{Binding AddMenuItemCommand}" Margin="5,5,5,5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="200"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="5,5,5,5" HorizontalAlignment="Center"
-            Visibility="{Binding IsEditingItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <!-- Edit Item controls here -->
-                    <ComboBox Width="63" ItemsSource="{Binding MenuItems}" 
-                DisplayMemberPath="MenuItemID"
-                SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" RenderTransformOrigin="0.508,0.548" />
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Selected Item ID:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
-                        <TextBox Width="450" Text="{Binding SelectedMenuItem.MenuItemID, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Name:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
-                        <TextBox Width="450" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
-                        <TextBox Width="450" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
-                        <ComboBox Width="450" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
-                          ItemsSource="{Binding Categories}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
-                        <TextBox Width="450" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
-                        <TextBox Width="450" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" />
-                        <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <Button Content="Edit Selected Item" Command="{Binding EditMenuItemCommand}" Margin="5,5,5,5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="200"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="5,5,5,5" HorizontalAlignment="Center"
-            Visibility="{Binding IsDeletingItem, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <!-- Delete Item controls here -->
-                    <ComboBox Width="63" ItemsSource="{Binding MenuItems}" 
-                DisplayMemberPath="MenuItemID"
-                SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" />
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Selected Item ID:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
-                        <TextBox Width="450" Text="{Binding SelectedMenuItem.MenuItemID, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Name:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
-                        <TextBox Width="450" Text="{Binding NewItemName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Price:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
-                        <TextBox Width="450" Text="{Binding NewItemPrice, StringFormat=F2, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Category:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
-                        <ComboBox Width="450" SelectedItem="{Binding NewItemCategory, UpdateSourceTrigger=PropertyChanged}" 
-              ItemsSource="{Binding Categories}" IsEnabled="{Binding IsDeletingItem}" IsSynchronizedWithCurrentItem="True" IsReadOnly="True" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Description:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
-                        <TextBox Width="450" Text="{Binding NewItemDescription, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Image URL:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
-                        <TextBox Width="450" Text="{Binding NewItemImageURL, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsDeletingItem}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="New Item Is Active:" VerticalAlignment="Center" Margin="0,0,10,0" Width="200" Background="#FFB2B2B2"/>
-                        <CheckBox IsChecked="{Binding NewItemIsActive, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsDeletingItem}" />
-                    </StackPanel>
-                    <Button Content="Delete Selected Item" Command="{Binding DeleteMenuItemCommand}" Margin="5,5,5,5" Padding="15,5" Background="#FF0078D7" Foreground="White" FontWeight="Bold" BorderThickness="0" FontSize="16" Width="200"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <TextBlock Text="User Management" FontWeight="Bold" FontSize="20" Margin="3"/>
-                    <ListView ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" Height="150">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="UserID" DisplayMemberBinding="{Binding UserID}" />
-                                <GridViewColumn Header="UserName" DisplayMemberBinding="{Binding UserName}" />
-                                <GridViewColumn Header="Password" DisplayMemberBinding="{Binding Password}" />
-                                <GridViewColumn Header="UserType" DisplayMemberBinding="{Binding UserType}" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding IsUserManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="User Management" FontWeight="Bold" FontSize="20" Margin="3"/>
+                        <DataGrid Visibility="{Binding IsUserLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                                ItemsSource="{Binding Users}" 
+                                SelectedItem="{Binding SelectedUser}" 
+                                AutoGenerateColumns="False" 
+                                IsReadOnly="True" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="UserID" Binding="{Binding UserID}" Width="*" />
+                                <DataGridTextColumn Header="UserName" Binding="{Binding UserName}" Width="*" />
+                                <DataGridTextColumn Header="Password" Binding="{Binding Password}" Width="*" />
+                                <DataGridTextColumn Header="UserType" Binding="{Binding UserType}" Width="*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+
                     <StackPanel Orientation="Vertical" Visibility="{Binding IsAddingUser, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <TextBlock Text="Add User" FontWeight="Bold" FontSize="18" Margin="3"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
-                            <TextBlock Text="User Name:" Margin="3"/>
-                            <TextBox Text="{Binding NewUserName}" Width="200" Margin="3"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
-                            <TextBlock Text="Password:" Margin="3"/>
-                            <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="3"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
-                            <TextBlock Text="User Type:" Margin="3"/>
-                            <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="3"/>
-                        </StackPanel>
-                        <Button Content="Submit" Command="{Binding AddUserCommand}" HorizontalAlignment="Center" Margin="3"/>
+                                <TextBlock Text="Add User" FontWeight="Bold" FontSize="18" Margin="3"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                    <TextBlock Text="User Name:" Margin="3"/>
+                                    <TextBox Text="{Binding NewUserName}" Width="200" Margin="3"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                    <TextBlock Text="Password:" Margin="3"/>
+                                    <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="3"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                    <TextBlock Text="User Type:" Margin="3"/>
+                                    <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="3"/>
+                                </StackPanel>
+                                <Button Content="Submit" Command="{Binding AddUserCommand}" HorizontalAlignment="Center" Margin="3"/>
+                            </StackPanel>
+                        <StackPanel Orientation="Vertical" Visibility="{Binding IsEditingUser, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <ComboBox Width="63" ItemsSource="{Binding Users}" 
+                                            DisplayMemberPath="UserID"
+                                            SelectedItem="{Binding SelectedUser, Mode=TwoWay}" RenderTransformOrigin="0.508,0.548" />
+                                <TextBlock Text="Edit User" FontWeight="Bold" FontSize="18" Margin="3"/>
+                                <!-- Include the same StackPanels for UserName, Password, and UserType as in the Add User section here -->
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                    <TextBlock Text="User Name:" Margin="3"/>
+                                    <TextBox Text="{Binding NewUserName}" Width="200" Margin="5"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                    <TextBlock Text="Password:" Margin="3"/>
+                                    <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="5"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                    <TextBlock Text="User Type:" Margin="3"/>
+                                    <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="3"/>
+                                </StackPanel>
+                                <Button Content="Submit" Command="{Binding EditUserCommand}" HorizontalAlignment="Center" Margin="3"/>
+                            </StackPanel>
+                        <StackPanel Orientation="Vertical" Visibility="{Binding IsDeletingUser, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <ComboBox Width="63" ItemsSource="{Binding Users}" 
+                                            DisplayMemberPath="UserID"
+                                            SelectedItem="{Binding SelectedUser, Mode=TwoWay}" RenderTransformOrigin="0.508,0.548" />
+                                <TextBlock Text="Delete User" FontWeight="Bold" FontSize="18" Margin="3"/>
+                                <!-- Include the same StackPanels for UserName, Password, and UserType as in the Add User section here -->
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                    <TextBlock Text="User Name:" Margin="3"/>
+                                    <TextBox Text="{Binding NewUserName}" Width="200" Margin="3"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                    <TextBlock Text="Password:" Margin="3"/>
+                                    <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="3"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                                    <TextBlock Text="User Type:" Margin="3"/>
+                                    <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="3"/>
+                                </StackPanel>
+                                <Button Content="Submit" Command="{Binding DeleteUserCommand}" HorizontalAlignment="Center" Margin="3"/>
+                            </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Visibility="{Binding IsEditingUser, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <TextBlock Text="Edit User" FontWeight="Bold" FontSize="18" Margin="3"/>
-                        <!-- Include the same StackPanels for UserName, Password, and UserType as in the Add User section here -->
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
-                            <TextBlock Text="User Name:" Margin="3"/>
-                            <TextBox Text="{Binding NewUserName}" Width="200" Margin="5"/>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding IsOrderManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="Order Management" FontWeight="Bold" FontSize="20" Margin="3"/>
+                        <DataGrid ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Order ID" Binding="{Binding OrderID}" Width="*" />
+                                <DataGridTextColumn Header="User ID" Binding="{Binding UserID}" Width="*" />
+                                <DataGridTextColumn Header="Order Time" Binding="{Binding OrderTime}" Width="*" />
+                                <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount}" Width="*" />
+                                <DataGridCheckBoxColumn Header="Is Fulfilled" Binding="{Binding IsFulfilled}" Width="*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Vertical" Visibility="{Binding IsAddingOrder, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <TextBlock Text="Add Order" FontWeight="Bold" FontSize="18" Margin="3"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                <TextBlock Text="Total Amount:" Margin="3"/>
+                                <TextBox Text="{Binding NewOrderTotalAmount}" Width="200" Margin="3"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                <TextBlock Text="Is Fulfilled:" Margin="3"/>
+                                <CheckBox IsChecked="{Binding NewOrderIsFulfilled}" Margin="3"/>
+                            </StackPanel>
+                            <Button Content="Submit" Command="{Binding AddOrderCommand}" HorizontalAlignment="Center" Margin="3"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
-                            <TextBlock Text="Password:" Margin="3"/>
-                            <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="5"/>
+                        <StackPanel Orientation="Vertical" Visibility="{Binding IsEditingOrder, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <DataGrid ItemsSource="{Binding UnpaidOrders}" SelectedItem="{Binding SelectedUnpaidOrder}" AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Order ID" Binding="{Binding OrderID}" Width="*" />
+                                    <DataGridTextColumn Header="User ID" Binding="{Binding UserID}" Width="*" />
+                                    <DataGridTextColumn Header="Order Time" Binding="{Binding OrderTime}" Width="*" />
+                                    <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount}" Width="*" />
+                                    <DataGridCheckBoxColumn Header="Is Fulfilled" Binding="{Binding IsFulfilled}" Width="*" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <TextBlock Text="Edit Order" FontWeight="Bold" FontSize="18" Margin="3"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                <TextBlock Text="Order ID to Edit:" Margin="3"/>
+                                <ComboBox ItemsSource="{Binding UnpaidOrders}" SelectedItem="{Binding SelectedUnpaidOrder}" DisplayMemberPath="OrderID" Width="200" Margin="3"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                <TextBlock Text="Is Fulfilled:" Margin="3"/>
+                                <CheckBox IsChecked="{Binding NewOrderIsFulfilled}" Margin="3"/>
+                            </StackPanel>
+                            <Button Content="Submit" Command="{Binding EditOrderCommand}" HorizontalAlignment="Center" Margin="3"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
-                            <TextBlock Text="User Type:" Margin="3"/>
-                            <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="3"/>
+                        <StackPanel Orientation="Vertical" Visibility="{Binding IsDeletingOrder, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <DataGrid ItemsSource="{Binding DeletableOrders}" SelectedItem="{Binding SelectedDeletableOrder}" AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Order ID" Binding="{Binding OrderID}" Width="*" />
+                                    <DataGridTextColumn Header="User ID" Binding="{Binding UserID}" Width="*" />
+                                    <DataGridTextColumn Header="Order Time" Binding="{Binding OrderTime}" Width="*" />
+                                    <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount}" Width="*" />
+                                    <DataGridCheckBoxColumn Header="Is Fulfilled" Binding="{Binding IsFulfilled}" Width="*" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <TextBlock Text="Delete Order" FontWeight="Bold" FontSize="18" Margin="3"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                <TextBlock Text="Order ID to Delete:" Margin="3"/>
+                                <ComboBox ItemsSource="{Binding DeletableOrders}" SelectedItem="{Binding SelectedDeletableOrder}" DisplayMemberPath="OrderID" Width="200" Margin="3"/>
+                            </StackPanel>
+                            <Button Content="Submit" Command="{Binding DeleteOrderCommand}" HorizontalAlignment="Center" Margin="3"/>
                         </StackPanel>
-                        <Button Content="Submit" Command="{Binding EditUserCommand}" HorizontalAlignment="Center" Margin="3"/>
+                        
+                </StackPanel>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding IsOrderItemManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="Order Item Management" FontWeight="Bold" FontSize="20" Margin="3"/>
+                            <DataGrid ItemsSource="{Binding OrderItemViewModels}" SelectedItem="{Binding SelectedOrderItemViewModel}" AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="OrderItem ID" Binding="{Binding OrderItemID}" Width="*" />
+                                    <DataGridTextColumn Header="Order ID" Binding="{Binding OrderID}" Width="*" />
+                                    <DataGridTextColumn Header="MenuItem ID" Binding="{Binding MenuItemID}" Width="*" />
+                                    <DataGridTextColumn Header="MenuItem Name" Binding="{Binding MenuItemName}" Width="*" />
+                                    <DataGridTextColumn Header="MenuItem Price" Binding="{Binding MenuItemPrice}" Width="*" />
+                                    <DataGridTextColumn Header="MenuItem Category" Binding="{Binding MenuItemCategory}" Width="*" />
+                                    <DataGridTextColumn Header="MenuItem Description" Binding="{Binding MenuItemDescription}" Width="*" />
+                                    <DataGridTextColumn Header="MenuItem Image URL" Binding="{Binding MenuItemImageURL}" Width="*" />
+                                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="*" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        <StackPanel Orientation="Vertical" Visibility="{Binding IsAddingOrderItem, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <!-- DataGrid for Active Menu Items -->
+                            <DataGrid ItemsSource="{Binding ActiveMenuItems}" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_OnAutoGeneratingColumn" IsReadOnly="True" />
+                            <!-- DataGrid for Unfulfilled Orders -->
+                            <DataGrid ItemsSource="{Binding UnfulfilledOrders}" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_OnAutoGeneratingColumn" IsReadOnly="True" />
+                            <ComboBox Width="63" ItemsSource="{Binding ActiveMenuItems}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedActiveMenuItem, Mode=TwoWay}" RenderTransformOrigin="0.508,0.548" />
+                            <ComboBox Width="63" ItemsSource="{Binding UnfulfilledOrders}" DisplayMemberPath="OrderID" SelectedItem="{Binding SelectedUnfulfilledOrder, Mode=TwoWay}" RenderTransformOrigin="0.508,0.548" />
+                            <TextBlock Text="Add Order Item" FontWeight="Bold" FontSize="18" Margin="3"/>
+                            <TextBlock Text="{Binding SelectedUnfulfilledOrder.OrderID}" FontWeight="Bold" FontSize="18" Margin="3"/>
+                            <TextBlock Text="{Binding SelectedActiveMenuItem.Name}" FontWeight="Bold" FontSize="18" Margin="3"/>
+                            <TextBlock Text="{Binding SelectedActiveMenuItem.Price}" FontWeight="Bold" FontSize="18" Margin="3"/>
+                            <TextBlock Text="Quantity:" Margin="3"/>
+                            <TextBox Text="{Binding NewQuantity, Mode=TwoWay}" Width="200" Margin="3"/>
+                            <Button Content="Submit" Command="{Binding AddOrderItemCommand}" HorizontalAlignment="Center" Margin="3"/>
+                        </StackPanel>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding IsEditingOrderItem, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <!-- ComboBox for Selecting the Order Item to Edit -->
+                        <ComboBox Width="63" ItemsSource="{Binding OrderItemViewModels}" DisplayMemberPath="OrderItemID" SelectedItem="{Binding SelectedOrderItemViewModel, Mode=TwoWay}" />
+                        <!-- ComboBox for Selecting Active Menu Item -->
+                        <ComboBox Width="63" ItemsSource="{Binding ActiveMenuItems}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedActiveMenuItem, Mode=TwoWay}" RenderTransformOrigin="0.508,0.548" />
+                        <!-- ComboBox for Selecting Unfulfilled Order -->
+                        <ComboBox Width="63" ItemsSource="{Binding UnfulfilledOrders}" DisplayMemberPath="OrderID" SelectedItem="{Binding SelectedUnfulfilledOrder, Mode=TwoWay}" RenderTransformOrigin="0.508,0.548" />
+                        <TextBlock Text="Edit Order Item" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <TextBlock Text="{Binding SelectedUnfulfilledOrder.OrderID}" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <TextBlock Text="{Binding SelectedActiveMenuItem.Name}" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <TextBlock Text="{Binding SelectedActiveMenuItem.Price}" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <TextBlock Text="New Quantity:" Margin="3"/>
+                        <TextBox Text="{Binding NewQuantity, Mode=TwoWay}" Width="200" Margin="3"/>
+                        <Button Content="Submit" Command="{Binding EditOrderItemCommand}" HorizontalAlignment="Center" Margin="3"/>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" Visibility="{Binding IsDeletingUser, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <TextBlock Text="Delete User" FontWeight="Bold" FontSize="18" Margin="3"/>
-                        <!-- Include the same StackPanels for UserName, Password, and UserType as in the Add User section here -->
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
-                            <TextBlock Text="User Name:" Margin="3"/>
-                            <TextBox Text="{Binding NewUserName}" Width="200" Margin="3"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
-                            <TextBlock Text="Password:" Margin="3"/>
-                            <TextBox Text="{Binding NewUserPassword}" Width="200" Margin="3"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                            <TextBlock Text="User Type:" Margin="3"/>
-                            <ComboBox ItemsSource="{Binding UserTypeOptions}" SelectedItem="{Binding NewUserType}" Width="200" Margin="3"/>
-                        </StackPanel>
-                        <Button Content="Submit" Command="{Binding DeleteUserCommand}" HorizontalAlignment="Center" Margin="3"/>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding IsDeletingOrderItem, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <!-- ComboBox for Selecting the Order Item to Edit -->
+                        <ComboBox Width="63" ItemsSource="{Binding OrderItemViewModels}" DisplayMemberPath="OrderItemID" SelectedItem="{Binding SelectedOrderItemViewModel, Mode=TwoWay}"  />
+                        <TextBlock Text="Delete Order Item" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <TextBlock Text="{Binding SelectedOrderItemViewModel.OrderID}" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <TextBlock Text="{Binding SelectedOrderItemViewModel.MenuItemName}" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <TextBlock Text="{Binding SelectedOrderItemViewModel.MenuItemPrice}" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <TextBlock Text="Quantity:" Margin="3"/>
+                        <TextBlock Text="{Binding SelectedOrderItemViewModel.Quantity}" FontWeight="Bold" FontSize="18" Margin="3"/>
+                        <Button Content="Delete" Command="{Binding DeleteOrderItemCommand}" HorizontalAlignment="Center" Margin="3"/>
                     </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </ScrollViewer>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding IsBillManagementVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="Bill Management" FontWeight="Bold" FontSize="20" Margin="3"/>
+                        <DataGrid ItemsSource="{Binding Bills}" SelectedItem="{Binding SelectedBill}" AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Bill ID" Binding="{Binding BillID}" Width="*" />
+                                <DataGridTextColumn Header="Bill Number" Binding="{Binding BillNumber}" Width="*" />
+                                <DataGridTextColumn Header="Order ID" Binding="{Binding OrderID}" Width="*" />
+                                <DataGridTextColumn Header="Bill Time" Binding="{Binding BillTime}" Width="*" />
+                                <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount}" Width="*" />
+                                <DataGridCheckBoxColumn Header="Is Paid" Binding="{Binding IsPaid}" Width="*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <!-- Add Bill -->
+                        <StackPanel Orientation="Vertical" Visibility="{Binding IsAddingBill, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <TextBlock Text="Add Bill" FontWeight="Bold" FontSize="18" Margin="3"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                <TextBlock Text="Order ID:" Margin="3"/>
+                                <ComboBox ItemsSource="{Binding FulfilledOrders}" SelectedItem="{Binding SelectedFulfilledOrder}" DisplayMemberPath="OrderID" Width="200" Margin="3"/>
+                            </StackPanel>
+                            <Button Content="Submit" Command="{Binding AddBillCommand}" HorizontalAlignment="Center" Margin="3"/>
+                        </StackPanel>
+                        <!-- Edit Bill -->
+                        <StackPanel Orientation="Vertical" Visibility="{Binding IsEditingBill, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <DataGrid ItemsSource="{Binding UnpaidBills}" SelectedItem="{Binding SelectedUnpaidBill}" AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Bill ID" Binding="{Binding BillID}" Width="*" />
+                                    <DataGridTextColumn Header="Bill Number" Binding="{Binding BillNumber}" Width="*" />
+                                    <DataGridTextColumn Header="Order ID" Binding="{Binding OrderID}" Width="*" />
+                                    <DataGridTextColumn Header="Bill Time" Binding="{Binding BillTime}" Width="*" />
+                                    <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount}" Width="*" />
+                                    <DataGridCheckBoxColumn Header="Is Paid" Binding="{Binding IsPaid}" Width="*" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <TextBlock Text="Edit Bill" FontWeight="Bold" FontSize="18" Margin="3"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                <TextBlock Text="Bill Number to Edit:" Margin="3"/>
+                                <ComboBox ItemsSource="{Binding UnpaidBills}" SelectedItem="{Binding SelectedUnpaidBill}" DisplayMemberPath="BillNumber" Width="200" Margin="3"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                <TextBlock Text="Is Paid:" Margin="3"/>
+                                <CheckBox IsChecked="{Binding NewBillIsPaid}" Margin="3"/>
+                            </StackPanel>
+                            <Button Content="Submit" Command="{Binding EditBillCommand}" HorizontalAlignment="Center" Margin="3"/>
+                        </StackPanel>
+
+                        <!-- Delete Bill -->
+                        <StackPanel Orientation="Vertical" Visibility="{Binding IsDeletingBill, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <DataGrid ItemsSource="{Binding UnpaidBills}" SelectedItem="{Binding SelectedUnpaidBill}" AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Bill ID" Binding="{Binding BillID}" Width="*" />
+                                    <DataGridTextColumn Header="Bill Number" Binding="{Binding BillNumber}" Width="*" />
+                                    <DataGridTextColumn Header="Order ID" Binding="{Binding OrderID}" Width="*" />
+                                    <DataGridTextColumn Header="Bill Time" Binding="{Binding BillTime}" Width="*" />
+                                    <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount}" Width="*" />
+                                    <DataGridCheckBoxColumn Header="Is Paid" Binding="{Binding IsPaid}" Width="*" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <TextBlock Text="Delete Bill" FontWeight="Bold" FontSize="18" Margin="3"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                                <TextBlock Text="Bill ID to Delete:" Margin="3"/>
+                                <ComboBox ItemsSource="{Binding UnpaidBills}" SelectedItem="{Binding SelectedUnpaidBill}" DisplayMemberPath="BillID" Width="200" Margin="3"/>
+                            </StackPanel>
+                            <Button Content="Submit" Command="{Binding DeleteBillCommand}" HorizontalAlignment="Center" Margin="3"/>
+                        </StackPanel>
+
+
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
-    </DockPanel>
+
 </UserControl>

@@ -17,7 +17,10 @@ public class OrderItemRepository : IOrderItemRepository
 
     public async Task<List<OrderItem>> GetOrderItemsAsync()
     {
-        return await _context.OrderItems.ToListAsync();
+        return await _context.OrderItems
+        .Include(oi => oi.Order)
+        .Include(oi => oi.MenuItem)
+        .ToListAsync();
     }
 
     public async Task<OrderItem> GetOrderItemByIdAsync(int id)
@@ -25,14 +28,12 @@ public class OrderItemRepository : IOrderItemRepository
         var orderItem = await _context.OrderItems.FindAsync(id);
         return orderItem ?? throw new Exception($"No order item found with ID {id}");
     }
-
     public async Task<bool> AddOrderItemAsync(OrderItem orderItem)
     {
         _context.OrderItems.Add(orderItem);
         var saveResult = await _context.SaveChangesAsync();
         return saveResult > 0;
     }
-
     public async Task<bool> UpdateOrderItemAsync(OrderItem orderItem)
     {
         _context.OrderItems.Attach(orderItem);
@@ -40,7 +41,6 @@ public class OrderItemRepository : IOrderItemRepository
         var saveResult = await _context.SaveChangesAsync();
         return saveResult > 0;
     }
-
     public async Task<bool> DeleteOrderItemAsync(int id)
     {
         var orderItem = await _context.OrderItems.FindAsync(id);
