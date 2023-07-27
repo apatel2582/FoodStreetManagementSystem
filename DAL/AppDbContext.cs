@@ -65,11 +65,11 @@ public sealed class AppDbContext : DbContext
                 -- Create the Orders table
                 CREATE TABLE IF NOT EXISTS Orders (
                     OrderID INTEGER PRIMARY KEY,
-                    OrderNumber TEXT NOT NULL,
-                    OrderDate DATE NOT NULL,
-                    TableNumber INTEGER NOT NULL,
+                    UserID INTEGER NOT NULL,
+                    OrderTime TEXT NOT NULL,
                     TotalAmount REAL NOT NULL,
-                    IsFulfilled INTEGER NOT NULL DEFAULT 0
+                    IsFulfilled INTEGER NOT NULL DEFAULT 0,
+                    FOREIGN KEY (UserID) REFERENCES Users (UserID)
                 );
                 -- Create the OrderItems table
                 CREATE TABLE IF NOT EXISTS OrderItems (
@@ -86,7 +86,7 @@ public sealed class AppDbContext : DbContext
                     BillID INTEGER PRIMARY KEY,
                     OrderID INTEGER NOT NULL,
                     BillNumber TEXT NOT NULL,
-                    BillDate DATE NOT NULL,
+                    BillTime TEXT NOT NULL,
                     TotalAmount REAL NOT NULL,
                     IsPaid INTEGER NOT NULL DEFAULT 0,
                     FOREIGN KEY (OrderID) REFERENCES Orders (OrderID)
@@ -153,15 +153,14 @@ public sealed class AppDbContext : DbContext
                     ('cashier2', 'password2', 'Cashier'),
                     ('cashier3', 'password3', 'Cashier'),
                     ('cashier4', 'password4', 'Cashier'),
-                    ('manager1', 'password1', 'Manager');
+                    ('manager1', 'password1', 'Manager'),
+                    ('admin', 'admin', 'Manager');
                 -- Insert Sample Orders
-                INSERT INTO Orders (OrderNumber, OrderDate, TableNumber, TotalAmount, IsFulfilled)
+                INSERT INTO Orders (UserID, OrderTime, TotalAmount, IsFulfilled)
                 VALUES
-                    ('ORD001', '2023-07-01', 1, 15.99, 1),
-                    ('ORD002', '2023-07-02', 2, 25.99, 1),
-                    ('ORD003', '2023-07-03', 3, 12.99, 0);
-                    -- Insert the remaining sample orders here
-                -- Insert Sample Order Items
+                    (1, '2023-07-01 00:00:00', 15.99, 1),
+                    (2, '2023-07-02 00:00:00', 25.99, 1),
+                    (3, '2023-07-03 00:00:00', 12.99, 0);
                 INSERT INTO OrderItems (OrderID, MenuItemID, Quantity, Subtotal)
                 VALUES
                     (1, 1, 2, 11.98),
@@ -169,12 +168,11 @@ public sealed class AppDbContext : DbContext
                     (2, 3, 3, 14.97);
                     -- Insert the remaining sample order items here
                 -- Insert Sample Bills
-                INSERT INTO Bills (OrderID, BillNumber, BillDate, TotalAmount, IsPaid)
+                INSERT INTO Bills (OrderID, BillNumber, BillTime, TotalAmount, IsPaid)
                 VALUES
-                    (1, 'BIL001', '2023-07-01', 15.99, 1),
-                    (2, 'BIL002', '2023-07-02', 25.99, 1),
-                    (3, 'BIL003', '2023-07-03', 12.99, 0);
-                    -- Insert the remaining sample bills here
+                    (1, 'BIL001', '2023-07-01 00:00:00', 15.99, 1),
+                    (2, 'BIL002', '2023-07-02 00:00:00', 25.99, 1),
+                    (3, 'BIL003', '2023-07-03 00:00:00', 12.99, 0);
             ";
         insertCommand.ExecuteNonQuery();
     }

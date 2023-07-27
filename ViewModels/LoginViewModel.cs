@@ -14,7 +14,7 @@ public class LoginViewModel : ObservableObject, ILoginViewModel
     private string _username = string.Empty;
     private string _password = string.Empty;
     private readonly IUserRepository _userRepository;
-
+    private User? _currentUser;
     public LoginViewModel(IUserRepository userRepository)
     {
         _userRepository = userRepository;
@@ -36,14 +36,14 @@ public class LoginViewModel : ObservableObject, ILoginViewModel
 
     private async Task Login()
     {
-        User? user = await _userRepository.ValidateCredentials(Username, Password);
+        _currentUser = await _userRepository.ValidateCredentials(Username, Password);
 
-        if (user != null)
+        if (_currentUser != null)
         {
             // After successful login, send a message to the main window to switch view model
             // The message includes the user type
-            if (user.UserType != null)
-                WeakReferenceMessenger.Default.Send(new LoginSucceededMessage(user.UserType));
+            if (_currentUser.UserType != null)
+                WeakReferenceMessenger.Default.Send(new LoginSucceededMessage(_currentUser.UserType, _currentUser.UserID));
         }
         else
         {
@@ -53,9 +53,15 @@ public class LoginViewModel : ObservableObject, ILoginViewModel
     }
 }
 
-public class LoginSucceededMessage : ValueChangedMessage<string>
+
+public class LoginSucceededMessage
 {
-    public LoginSucceededMessage(string userType) : base(userType)
+    public string UserType { get; }
+    public int UserID { get; }
+
+    public LoginSucceededMessage(string userType, int userID)
     {
+        UserType = userType;
+        UserID = userID;
     }
 }
